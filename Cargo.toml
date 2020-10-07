@@ -1,0 +1,5 @@
+[package]
+name = "op-api-sdk"
+version = "0.1.0"
+authors = ["Heikki Hellgren <heikki.hellgren@op.fi>"]
+edition = "2018"
