@@ -1,5 +1,10 @@
 # op-api-rust-sdk
 
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/drodil/op-api-rust-sdk/blob/master/LICENSE)
+[![Contributors](https://img.shields.io/github/contributors/drodil/op-api-rust-sdk.svg?style=flat)]()
+[![Issues](https://img.shields.io/github/issues-raw/drodil/op-api-rust-sdk.svg?maxAge=25000)](https://github.com/drodil/op-api-rust-sdk/issues)
+[![PRs](https://img.shields.io/github/issues-pr/drodil/op-api-rust-sdk.svg?style=flat)](https://github.com/drodil/op-api-rust-sdk/pulls)
+
 Rust SDK for [OP REST API](https://op-developer.fi/)
 
 ## Installation
