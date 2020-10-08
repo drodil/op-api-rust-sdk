@@ -170,15 +170,10 @@ impl Accounts {
     /// Gets all accounts from the API and returns list of them.
     pub async fn accounts(&self) -> Result<AccountList, Box<dyn Error>> {
         let url = format!("/accounts/{}/accounts", self.options.version());
-        let resp = Requests::get(&self.options, &url, None::<()>).await;
-        match resp {
-            Ok(response) => {
-                debug!("Accounts response: {:#?}", response);
-                let accounts: AccountList = response.json().await?;
-                Ok(accounts)
-            }
-            Err(er) => Err(er.into()),
-        }
+        let response = Requests::get(&self.options, &url, None::<()>).await?;
+        debug!("Accounts response: {:#?}", response);
+        let accounts: AccountList = response.json().await?;
+        Ok(accounts)
     }
 
     /// Gets single account from the API based on accountId.
@@ -188,15 +183,10 @@ impl Accounts {
             self.options.version(),
             account_id
         );
-        let resp = Requests::get(&self.options, &url, None::<()>).await;
-        match resp {
-            Ok(response) => {
-                debug!("Account response: {:#?}", response);
-                let account: Account = response.json().await?;
-                Ok(account)
-            }
-            Err(er) => Err(er.into()),
-        }
+        let response = Requests::get(&self.options, &url, None::<()>).await?;
+        debug!("Account response: {:#?}", response);
+        let account: Account = response.json().await?;
+        Ok(account)
     }
 
     pub async fn transactions(
@@ -209,14 +199,9 @@ impl Accounts {
             self.options.version(),
             account_id
         );
-        let resp = Requests::get(&self.options, &url, params).await;
-        match resp {
-            Ok(response) => {
-                debug!("Transactions response: {:#?}", response);
-                let list: TransactionList = response.json().await?;
-                Ok(list)
-            }
-            Err(er) => Err(er.into()),
-        }
+        let response = Requests::get(&self.options, &url, params).await?;
+        debug!("Transactions response: {:#?}", response);
+        let list: TransactionList = response.json().await?;
+        Ok(list)
     }
 }
