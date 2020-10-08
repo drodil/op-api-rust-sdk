@@ -57,19 +57,34 @@ impl Accounts {
     }
 
     /// Gets all accounts from the API and returns list of them.
-    ///
-    /// Errors might come from unauthorized access or JSON deserialization.
     pub async fn get_all(&self) -> Result<AccountList, Box<dyn Error>> {
         let url = format!("/accounts/{}/accounts", self.options.get_version());
         let resp = Requests::get(&self.options, &url).await;
-        let ret = match resp {
+        match resp {
             Ok(response) => {
                 debug!("Accounts response: {:#?}", response);
                 let accounts: AccountList = response.json().await?;
                 Ok(accounts)
             }
             Err(er) => Err(er.into()),
-        };
-        ret
+        }
+    }
+
+    /// Gets single account from the API based on accountId.
+    pub async fn get_account(&self, account_id: String) -> Result<Account, Box<dyn Error>> {
+        let url = format!(
+            "/accounts/{}/accounts/{}",
+            self.options.get_version(),
+            account_id
+        );
+        let resp = Requests::get(&self.options, &url).await;
+        match resp {
+            Ok(response) => {
+                debug!("Account response: {:#?}", response);
+                let account: Account = response.json().await?;
+                Ok(account)
+            }
+            Err(er) => Err(er.into()),
+        }
     }
 }
