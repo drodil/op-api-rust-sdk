@@ -15,19 +15,19 @@ To be published to [crates.io](https://crates.io/)
 
 See apis crate for all available clients. Example of getting account data:
 
-    use tokio;
-    use op_api_sdk::apis::accounts::Accounts;
-    use op_api_sdk::options::Options;
+```rust
+use op_api_sdk::apis::accounts::Accounts;
+use op_api_sdk::options::Options;
+use tokio;
 
-    #[tokio::main]
-    fn main {
-        let mut options = Options::new_dev("X-API-KEY");
-        options.set_version("v3".to_string());
-        let client = Accounts::new(options);
-        let resp = client.accounts().await;
-        let accounts = resp.unwrap();
-        println!("{:?}", accounts);
-    }
+#[tokio::main]
+async fn main() {
+    let mut options = Options::new_dev(String::from("X_API_KEY"));
+    options.set_version("v3".to_string());
+    let accounts = Accounts::new(options).accounts().await.unwrap();
+    println!("{:?}", accounts);
+}
+```
 
 See [requests](https://op-developer.fi/docs/#user-content-requests) for required headers.
 
