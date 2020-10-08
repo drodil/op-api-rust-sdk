@@ -1,5 +1,20 @@
 [package]
 name = "op-api-sdk"
+description = "Rust SDK for OP REST API"
 version = "0.1.0"
 authors = ["Heikki Hellgren <heikki.hellgren@op.fi>"]
 edition = "2018"
+homepage = "https://op-developer.fi/"
+repository = "https://github.com/drodil/op-api-rust-sdk/"
+readme = "README.md"
+license-file = "LICENSE"
+keywords = ["op", "banking", "http", "rest"]
+categories = ["api-bindings"]
+
+[dependencies]
+log = "0.4.11"
+serde = { version = "1.0", features = ["derive"] }
+reqwest = { version = "0.10.8", features = ["json"] }
+
+[dev-dependencies]
+tokio = { version = "0.2", features = ["macros"] }
