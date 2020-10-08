@@ -47,6 +47,11 @@ Few guidelines for developing this library:
 
 Tests depend to real sandbox data.
 
-- register at https://op-developer.fi/developers/register
-- create an app that has access to all sandbox products (Mobility, Banking, etc)
-- run tests with ```X_API_KEY=<your api key> cargo test```
+- Register at https://op-developer.fi/developers/register
+- Create an app that has access to all sandbox products (Mobility, Banking, etc)
+- Run tests with `X_API_KEY=<your api key> cargo test`
+
+To enable debug logging from the library set up the RUST_LOG environment
+variable
+
+    export RUST_LOG=op_api_sdk=debug

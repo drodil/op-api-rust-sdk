@@ -1,22 +1,27 @@
 #[cfg(test)]
 mod accounts_tests {
-    use op_api_sdk::apis::accounts::Accounts;
+    use op_api_sdk::apis::accounts::*;
     use op_api_sdk::options::Options;
     use std::env;
 
-    fn test_options() -> Options {
+    fn init() {
+        let _ = env_logger::builder().is_test(true).try_init();
+    }
+
+    fn options() -> Options {
         Options::new_dev(env::var("X_API_KEY").unwrap())
     }
 
     #[tokio::test]
     async fn test_accounts() {
-        let mut options = test_options();
+        init();
+        let mut options = options();
         options.set_version("v3".to_string());
         let client = Accounts::new(options);
 
         // First test getting all accounts
         let resp = client.accounts().await;
-        assert_eq!(true, resp.is_ok());
+        assert_eq!(true, resp.is_ok(), "{:?}", resp.err());
 
         let accounts = resp.unwrap();
         assert_eq!(1, accounts.accounts.len());
@@ -38,7 +43,7 @@ mod accounts_tests {
         // Now try to fetch single account from the accounts list
         let original_account = account.unwrap();
         let single_resp = client.account(original_account.account_id.clone()).await;
-        assert_eq!(true, single_resp.is_ok());
+        assert_eq!(true, single_resp.is_ok(), "{:?}", single_resp.err());
 
         let single_account = single_resp.unwrap();
         assert_eq!(original_account.name, single_account.name);
@@ -56,5 +61,25 @@ mod accounts_tests {
             original_account.servicer_identifier,
             single_account.servicer_identifier
         );
+
+        // Then try to fetch transactions
+        let params = TransactionParams {
+            forward_paging_token: None,
+            from_booking_datetime: None,
+            page_size: Some(5),
+            to_booking_datetime: None,
+        };
+        let trans_resp = client
+            .transactions(original_account.account_id.clone(), Some(params))
+            .await;
+        assert_eq!(true, trans_resp.is_ok(), "{:?}", trans_resp.err());
+
+        let transactions = trans_resp.unwrap();
+        assert_ne!(0, transactions.transactions.len());
+
+        for trans in transactions.transactions.iter() {
+            assert_eq!(false, trans.transaction_id.is_empty());
+            assert_eq!(false, trans.amount.is_empty());
+        }
     }
 }
