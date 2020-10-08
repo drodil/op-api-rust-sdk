@@ -6,20 +6,16 @@ pub struct Requests;
 
 /// Constructs string URL from base url and API url.
 fn get_request_url(options: &Options, url: &str) -> String {
-    format!(
-        "{base_url}{url}",
-        base_url = options.get_base_url(),
-        url = url
-    )
+    format!("{base_url}{url}", base_url = options.base_url(), url = url)
 }
 
 /// Sets necessary headers for requests.
 fn set_headers(options: &Options, builder: RequestBuilder) -> RequestBuilder {
     builder
-        .header("x-api-key", options.get_api_key())
+        .header("x-api-key", options.api_key())
         .header(
             "Authorization",
-            format!("{} {}", "Bearer", options.get_authorization()),
+            format!("{} {}", "Bearer", options.authorization()),
         )
         .header("Accept", "application/json")
 }

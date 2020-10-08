@@ -24,7 +24,7 @@ See apis crate for all available clients. Example of getting account data:
         let mut options = Options::new_dev("X-API-KEY");
         options.set_version("v3".to_string());
         let client = Accounts::new(options);
-        let resp = client.get_all().await;
+        let resp = client.accounts().await;
         let accounts = resp.unwrap();
         println!("{:?}", accounts);
     }

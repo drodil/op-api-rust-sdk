@@ -37,21 +37,21 @@ impl Options {
     /// Gets base URL for requests.
     ///
     /// This is different for production and sandbox environments.
-    pub fn get_base_url(&self) -> &str {
+    pub fn base_url(&self) -> &str {
         &self.base_url
     }
 
     /// Gets API key for requests.
     ///
     /// This is used as HTTP header x-api-key.
-    pub fn get_api_key(&self) -> &str {
+    pub fn api_key(&self) -> &str {
         &self.api_key
     }
 
     /// Gets Authorization for requests.
     ///
     /// This is used together with 'Bearer ' in the Authorization HTTP header.
-    pub fn get_authorization(&self) -> &str {
+    pub fn authorization(&self) -> &str {
         &self.authorization
     }
 
@@ -64,7 +64,7 @@ impl Options {
     }
 
     /// Returns API version for requests.
-    pub fn get_version(&self) -> &str {
+    pub fn version(&self) -> &str {
         &self.version
     }
 }

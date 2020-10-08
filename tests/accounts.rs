@@ -9,13 +9,13 @@ mod accounts_tests {
     }
 
     #[tokio::test]
-    async fn test_get_accounts() {
+    async fn test_accounts() {
         let mut options = test_options();
         options.set_version("v3".to_string());
         let client = Accounts::new(options);
 
         // First test getting all accounts
-        let resp = client.get_all().await;
+        let resp = client.accounts().await;
         assert_eq!(true, resp.is_ok());
 
         let accounts = resp.unwrap();
@@ -37,9 +37,7 @@ mod accounts_tests {
 
         // Now try to fetch single account from the accounts list
         let original_account = account.unwrap();
-        let single_resp = client
-            .get_account(original_account.account_id.clone())
-            .await;
+        let single_resp = client.account(original_account.account_id.clone()).await;
         assert_eq!(true, single_resp.is_ok());
 
         let single_account = single_resp.unwrap();

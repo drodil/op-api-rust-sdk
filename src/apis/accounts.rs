@@ -57,8 +57,8 @@ impl Accounts {
     }
 
     /// Gets all accounts from the API and returns list of them.
-    pub async fn get_all(&self) -> Result<AccountList, Box<dyn Error>> {
-        let url = format!("/accounts/{}/accounts", self.options.get_version());
+    pub async fn accounts(&self) -> Result<AccountList, Box<dyn Error>> {
+        let url = format!("/accounts/{}/accounts", self.options.version());
         let resp = Requests::get(&self.options, &url).await;
         match resp {
             Ok(response) => {
@@ -71,10 +71,10 @@ impl Accounts {
     }
 
     /// Gets single account from the API based on accountId.
-    pub async fn get_account(&self, account_id: String) -> Result<Account, Box<dyn Error>> {
+    pub async fn account(&self, account_id: String) -> Result<Account, Box<dyn Error>> {
         let url = format!(
             "/accounts/{}/accounts/{}",
-            self.options.get_version(),
+            self.options.version(),
             account_id
         );
         let resp = Requests::get(&self.options, &url).await;
