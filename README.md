@@ -37,6 +37,7 @@ For further reading, please see our API [documentation](https://op-developer.fi/
 
 Few guidelines for developing this library:
 
+- Follow [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)
 - Keep formatting consistent by using `cargo fmt` for all changes
 - Use `cargo clippy` to find possible lint errors and warnings
 - Always add tests to your functionality, prefer TDD. Use /tests/ folder.
