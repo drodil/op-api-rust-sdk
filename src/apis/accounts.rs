@@ -48,7 +48,7 @@ pub struct AccountList {
 }
 
 /// Optional parameters to fetch transactions.
-#[derive(Serialize, Debug)]
+#[derive(Serialize, Debug, Default)]
 pub struct TransactionParams {
     /// ISO 8601-compatible date-time string representing the earliest date-time from which
     /// transactions will be queried. Timezone must not be set. Set time to to 00:00:00 for
@@ -71,17 +71,6 @@ pub struct TransactionParams {
 
 /// Implementation of the TransactionParams.
 impl TransactionParams {
-    /// Creates new TransactionParams without any parameters
-    /// set.
-    pub fn new() -> TransactionParams {
-        TransactionParams {
-            from_booking_datetime: None::<DateTime<Utc>>,
-            to_booking_datetime: None::<DateTime<Utc>>,
-            page_size: None::<u32>,
-            forward_paging_token: None::<String>,
-        }
-    }
-
     /// Sets fromBookingDateTime parameter.
     pub fn with_from_booking_datetime(mut self, datetime: DateTime<Utc>) -> Self {
         self.from_booking_datetime = Some(datetime);

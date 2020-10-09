@@ -91,7 +91,7 @@ async fn print_accounts_with_details(client: &Accounts, accounts: AccountList) {
         println!("IBAN: {}", acc.identifier);
         println!("Last 5 transactions:");
 
-        let params = TransactionParams::new().with_page_size(5);
+        let params = TransactionParams::default().with_page_size(5);
 
         // Fetch transactions for the account here.
         let trans_resp = client.transactions(acc.account_id, Some(params)).await;
