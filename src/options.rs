@@ -1,4 +1,7 @@
-/// Options for API clients.
+//! This module contains Options for the clients needed
+//! to make requests to [OP API](https://op-developer.fi).
+
+/// Struct containing needed options for API clients.
 #[derive(Default, Clone)]
 pub struct Options {
     api_key: String,

@@ -1,3 +1,7 @@
+//! Client and structures for OP
+//! [AccountsV3](https://op-developer.fi/docs/api/3Oo5zCujXGw2SGEi00skug/OP%20Accounts%20V3.0%20API)
+//! API
+
 use crate::options::Options;
 use crate::requests::Requests;
 use chrono::{DateTime, Utc};
@@ -11,7 +15,7 @@ pub struct Link {
     pub href: String,
 }
 
-/// Describes a single Account
+/// Describes a single Account in response.
 #[derive(Deserialize, Debug)]
 pub struct Account {
     /// A surrogate identifier for the bank account.
@@ -41,7 +45,7 @@ pub struct Account {
     pub servicer_identifier: String,
 }
 
-/// Describes a list of Accounts
+/// Describes a list of Accounts in accounts response.
 #[derive(Deserialize, Debug)]
 pub struct AccountList {
     pub accounts: Vec<Account>,
@@ -116,7 +120,7 @@ pub struct TransactionParty {
     pub servicer_identifier_type: String,
 }
 
-/// Describes a single Transaction for Account.
+/// Describes a single Transaction for Account in transactions response.
 #[derive(Deserialize, Debug)]
 pub struct Transaction {
     /// Surrogate identifier for the transaction.
@@ -168,13 +172,13 @@ pub struct Transaction {
     pub op_transaction_code: Option<String>,
 }
 
-/// Describes links in the Transactions object.
+/// Describes links in the Transactions object in transactions response.
 #[derive(Deserialize, Debug)]
 pub struct TransactionListLinks {
     pub next: Option<Link>,
 }
 
-/// Describes a list of Transactions.
+/// Describes a list of Transactions in transactions response.
 #[derive(Deserialize, Debug)]
 pub struct TransactionList {
     pub transactions: Vec<Transaction>,
@@ -184,7 +188,7 @@ pub struct TransactionList {
 
 /// Accounts client.
 ///
-/// This client is used to access the OP Accounts API.
+/// This client is used to access the OP AccountsV3 API.
 pub struct Accounts {
     options: Options,
 }
@@ -220,6 +224,8 @@ impl Accounts {
         Ok(account)
     }
 
+    /// Gets all transactions for a single account with account id
+    /// with optional parameters for filtering the results.
     pub async fn transactions(
         &self,
         account_id: String,

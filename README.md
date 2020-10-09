@@ -46,6 +46,8 @@ Few guidelines for developing this library:
   to find possible lint errors and warnings
 - Always add tests to your functionality, prefer TDD. Use /tests/ folder.
 - Always run tests with `cargo test` before pushing to remote
+- Check that you have documented all public functionality with `cargo doc
+  --open`
 
 ### Running tests
 
