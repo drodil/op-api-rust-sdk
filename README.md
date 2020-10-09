@@ -18,7 +18,6 @@ See apis crate for all available clients. Example of getting account data:
 ```rust
 use op_api_sdk::apis::accounts::Accounts;
 use op_api_sdk::options::Options;
-use tokio;
 
 #[tokio::main]
 async fn main() {
@@ -43,9 +42,10 @@ Few guidelines for developing this library:
 
 - Follow [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/)
 - Keep formatting consistent by using `cargo fmt` for all changes
-- Use `cargo clippy` to find possible lint errors and warnings
+- Use `cargo clippy --workspace --all-targets --verbose --all-features`
+  to find possible lint errors and warnings
 - Always add tests to your functionality, prefer TDD. Use /tests/ folder.
-- Always run tests before pushing to remote
+- Always run tests with `cargo test` before pushing to remote
 
 ### Running tests
 

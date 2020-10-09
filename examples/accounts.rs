@@ -15,7 +15,6 @@ use op_api_sdk::apis::accounts::{
 };
 use op_api_sdk::options::Options;
 use std::env;
-use tokio;
 
 const NONE_STRING: &str = "None";
 
@@ -35,7 +34,7 @@ fn print_transaction_party(party: Option<TransactionParty>) {
 
 /// Prints transactions from transaction list.
 fn print_transactions_with_details(transactions: TransactionList) {
-    if transactions.transactions.len() == 0 {
+    if transactions.transactions.is_empty() {
         println!("  No transactions found");
         return;
     }
@@ -46,15 +45,15 @@ fn print_transactions_with_details(transactions: TransactionList) {
         println!("  Account ID: {}", tr.account_id);
         println!(
             "  Archive ID: {}",
-            tr.archive_id.unwrap_or(NONE_STRING.to_string())
+            tr.archive_id.unwrap_or_else(|| NONE_STRING.to_string())
         );
         println!(
             "  Reference: {}",
-            tr.reference.unwrap_or(NONE_STRING.to_string())
+            tr.reference.unwrap_or_else(|| NONE_STRING.to_string())
         );
         println!(
             "  Message: {}",
-            tr.message.unwrap_or(NONE_STRING.to_string())
+            tr.message.unwrap_or_else(|| NONE_STRING.to_string())
         );
         println!("  Amount: {}{}", tr.amount, tr.currency);
         println!("  Type: {}", tr.credit_debit_indicator);
@@ -65,7 +64,10 @@ fn print_transactions_with_details(transactions: TransactionList) {
         print_transaction_party(tr.debtor);
         println!("  Booking: {}", tr.booking_datetime);
         println!("  Balanced: {}", tr.value_datetaime);
-        println!("  Status: {}", tr.status.unwrap_or("UNKNOWN".to_string()));
+        println!(
+            "  Status: {}",
+            tr.status.unwrap_or_else(|| "UNKNOWN".to_string())
+        );
     }
 }
 
@@ -81,7 +83,7 @@ async fn print_accounts_with_details(client: &Accounts, accounts: AccountList) {
         println!("Name: {}", acc.name);
         println!(
             "Nickname: {}",
-            acc.nickname.unwrap_or(NONE_STRING.to_string())
+            acc.nickname.unwrap_or_else(|| NONE_STRING.to_string())
         );
         println!(
             "Balance: {}{}",
