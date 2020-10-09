@@ -118,8 +118,7 @@ async fn main() {
         return;
     }
 
-    let mut options = Options::new_dev(args[1].clone());
-    options.set_version("v3".to_string());
+    let options = Options::new_dev(args[1].clone()).with_version("v3".to_string());
     let client = Accounts::new(options);
     let resp = client.accounts().await;
     match resp {

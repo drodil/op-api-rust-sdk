@@ -15,8 +15,7 @@ mod accounts_tests {
     #[tokio::test]
     async fn test_accounts() {
         init();
-        let mut options = options();
-        options.set_version("v3".to_string());
+        let options = options().with_version("v3".to_string());
         let client = Accounts::new(options);
 
         // First test getting all accounts

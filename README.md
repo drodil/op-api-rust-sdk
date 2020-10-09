@@ -21,8 +21,8 @@ use op_api_sdk::options::Options;
 
 #[tokio::main]
 async fn main() {
-    let mut options = Options::new_dev(String::from("X_API_KEY"));
-    options.set_version("v3".to_string());
+    let options = Options::new_dev(String::from("X_API_KEY"))
+                      .with_version("v3".to_string());
     let accounts = Accounts::new(options).accounts().await.unwrap();
     println!("{:?}", accounts);
 }
