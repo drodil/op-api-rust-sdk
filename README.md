@@ -29,6 +29,10 @@ async fn main() {
 }
 ```
 
+Additional examples available in the
+[Examples](https://github.com/drodil/op-api-rust-sdk/tree/main/examples)
+directory.
+
 See [requests](https://op-developer.fi/docs/#user-content-requests) for required headers.
 
 For further reading, please see our API [documentation](https://op-developer.fi/docs/)
