@@ -53,16 +53,58 @@ pub struct TransactionParams {
     /// ISO 8601-compatible date-time string representing the earliest date-time from which
     /// transactions will be queried. Timezone must not be set. Set time to to 00:00:00 for
     /// Date-only queries.
+    #[serde(rename = "fromBookingDateTime")]
     pub from_booking_datetime: Option<DateTime<Utc>>,
     /// ISO 8601-compatible date-time string representing the latest date-time up to which
     /// transactions will be queried. Timezone must not be set. Set time to 00:00:00 for Date-only
     /// queries.
+    #[serde(rename = "toBookingDateTime")]
     pub to_booking_datetime: Option<DateTime<Utc>>,
     /// Number of transactions to be returned per each page.
+    #[serde(rename = "pageSize")]
     pub page_size: Option<u32>,
     /// Paging token used to retrieve the next page of data. Tokens are available in the links
     /// located in the _links object.
+    #[serde(rename = "forwardPagingToken")]
     pub forward_paging_token: Option<String>,
+}
+
+/// Implementation of the TransactionParams.
+impl TransactionParams {
+    /// Creates new TransactionParams without any parameters
+    /// set.
+    pub fn new() -> TransactionParams {
+        TransactionParams {
+            from_booking_datetime: None::<DateTime<Utc>>,
+            to_booking_datetime: None::<DateTime<Utc>>,
+            page_size: None::<u32>,
+            forward_paging_token: None::<String>,
+        }
+    }
+
+    /// Sets fromBookingDateTime parameter.
+    pub fn with_from_booking_datetime(mut self, datetime: DateTime<Utc>) -> Self {
+        self.from_booking_datetime = Some(datetime);
+        self
+    }
+
+    /// Sets toBookingDateTime parameter.
+    pub fn with_to_booking_datetime(mut self, datetime: DateTime<Utc>) -> Self {
+        self.to_booking_datetime = Some(datetime);
+        self
+    }
+
+    /// Sets pageSize parameter.
+    pub fn with_page_size(mut self, page_size: u32) -> Self {
+        self.page_size = Some(page_size);
+        self
+    }
+
+    /// Sets forwardPagingToken parameter.
+    pub fn with_forward_paging_token(mut self, token: String) -> Self {
+        self.forward_paging_token = Some(token);
+        self
+    }
 }
 
 /// Describes a single party in Transaction.
