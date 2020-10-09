@@ -9,7 +9,13 @@ Rust SDK for [OP REST API](https://op-developer.fi/)
 
 ## Installation
 
-To be published to [crates.io](https://crates.io/)
+To use this library, simply add the following to your Cargo.toml:
+
+```rust
+op-api-sdk = "0.1.0"
+```
+
+See https://crates.io/crates/op-api-sdk for more versions and details of the crate.
 
 ## Usage
 
