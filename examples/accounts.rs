@@ -10,7 +10,6 @@
 /// ```bash
 /// cargo run --example accounts <API_KEY>
 /// ```
-
 use op_api_sdk::apis::accounts::{
     AccountList, Accounts, TransactionList, TransactionParams, TransactionParty,
 };
