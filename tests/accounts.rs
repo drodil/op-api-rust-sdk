@@ -1,6 +1,7 @@
 #[cfg(test)]
 mod accounts_tests {
-    use op_api_sdk::apis::accounts::*;
+    use op_api_sdk::client::Client;
+    use op_api_sdk::model::accounts::*;
     use op_api_sdk::options::Options;
     use std::env;
 
@@ -8,15 +9,12 @@ mod accounts_tests {
         let _ = env_logger::builder().is_test(true).try_init();
     }
 
-    fn options() -> Options {
-        Options::new_dev(env::var("X_API_KEY").unwrap())
-    }
-
     #[tokio::test]
     async fn test_accounts() {
         init();
-        let options = options().with_version("v3".to_string());
-        let client = Accounts::new(options);
+        let options = Options::new_dev(env::var("X_API_KEY").unwrap());
+        options.set_version("v3".to_string());
+        let client = Client::new(options);
 
         // First test getting all accounts
         let resp = client.accounts().await;

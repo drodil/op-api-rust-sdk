@@ -22,14 +22,14 @@ See https://crates.io/crates/op-api-sdk for more versions and details of the cra
 See apis crate for all available clients. Example of getting account data:
 
 ```rust
-use op_api_sdk::apis::accounts::Accounts;
+use op_api_sdk::client::Client;
 use op_api_sdk::options::Options;
 
 #[tokio::main]
 async fn main() {
-    let options = Options::new_dev(String::from("X_API_KEY"))
-                      .with_version("v3".to_string());
-    let accounts = Accounts::new(options).accounts().await.unwrap();
+    let options = Options::new_dev(String::from("X_API_KEY"));
+    options.set_version("v3".to_string());
+    let accounts = Client::new(options).accounts().await.unwrap();
     println!("{:?}", accounts);
 }
 ```

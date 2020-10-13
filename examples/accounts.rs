@@ -1,3 +1,4 @@
+use op_api_sdk::client::Client;
 /// This example show how to use Accounts client for
 /// fetching accounts and transaction details for each
 /// account.
@@ -10,8 +11,8 @@
 /// ```bash
 /// cargo run --example accounts <API_KEY>
 /// ```
-use op_api_sdk::apis::accounts::{
-    AccountList, Accounts, TransactionList, TransactionParams, TransactionParty,
+use op_api_sdk::model::accounts::{
+    AccountList, TransactionList, TransactionParams, TransactionParty,
 };
 use op_api_sdk::options::Options;
 use std::env;
@@ -75,7 +76,7 @@ fn print_transactions_with_details(transactions: TransactionList) {
 /// each account using the Accounts client. This function must be async
 /// as we are calling another async function for fetching the transactions
 /// for the accounts.
-async fn print_accounts_with_details(client: &Accounts, accounts: AccountList) {
+async fn print_accounts_with_details(client: &Client, accounts: AccountList) {
     println!("Found {} accounts:", accounts.accounts.len());
     for acc in accounts.accounts {
         println!("-----------------");
@@ -118,8 +119,9 @@ async fn main() {
         return;
     }
 
-    let options = Options::new_dev(args[1].clone()).with_version("v3".to_string());
-    let client = Accounts::new(options);
+    let options = Options::new_dev(args[1].clone());
+    options.set_version("v3".to_string());
+    let client = Client::new(options);
     let resp = client.accounts().await;
     match resp {
         Ok(accounts) => {
