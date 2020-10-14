@@ -8,11 +8,14 @@ use crate::model::funds::*;
 use crate::options::Options;
 use std::error::Error;
 use std::sync::Arc;
+use crate::apis::holdings::HoldingsApi;
+use crate::model::holdings::HoldingsInformation;
 
 pub struct Client {
     options: Arc<Options>,
     accounts_api: AccountsApi,
     funds_api: FundsApi,
+    holdings_api: HoldingsApi,
 }
 
 impl Client {
@@ -24,7 +27,8 @@ impl Client {
         Client {
             options: options.clone(),
             accounts_api: AccountsApi::new(options.clone()),
-            funds_api: FundsApi::new(options),
+            funds_api: FundsApi::new(options.clone()),
+            holdings_api: HoldingsApi::new(options.clone()),
         }
     }
 
@@ -52,6 +56,11 @@ impl Client {
     /// Gets all funds from the API and returns of them.
     pub async fn funds(&self) -> Result<Funds, Box<dyn Error>> {
         self.funds_api.funds().await
+    }
+
+    /// Gets holdings information from the API and returns it.
+    pub async fn holdings(&self) -> Result<HoldingsInformation, Box<dyn Error>> {
+        self.holdings_api.holdings().await
     }
 
     /// Gets all transactions for a single account with account id
