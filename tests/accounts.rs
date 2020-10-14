@@ -1,4 +1,5 @@
 #[cfg(test)]
+#[cfg(feature = "accounts")]
 mod accounts_tests {
     use op_api_sdk::client::Client;
     use op_api_sdk::model::accounts::*;
