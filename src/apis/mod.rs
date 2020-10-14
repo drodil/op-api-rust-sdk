@@ -2,3 +2,4 @@
 //! defined in [OP API](https://op-developer.fi/docs).
 
 pub mod accounts;
+pub mod funds;

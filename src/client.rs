@@ -2,7 +2,9 @@
 //! defined in [OP API](https://op-developer.fi/docs).
 
 use crate::apis::accounts::AccountsApi;
+use crate::apis::funds::FundsApi;
 use crate::model::accounts::*;
+use crate::model::funds::*;
 use crate::options::Options;
 use std::error::Error;
 use std::sync::Arc;
@@ -10,6 +12,7 @@ use std::sync::Arc;
 pub struct Client {
     options: Arc<Options>,
     accounts_api: AccountsApi,
+    funds_api: FundsApi,
 }
 
 impl Client {
@@ -20,7 +23,8 @@ impl Client {
     pub fn new(options: Arc<Options>) -> Client {
         Client {
             options: options.clone(),
-            accounts_api: AccountsApi::new(options),
+            accounts_api: AccountsApi::new(options.clone()),
+            funds_api: FundsApi::new(options),
         }
     }
 
@@ -43,6 +47,11 @@ impl Client {
     /// Gets single account from the API based on accountId.
     pub async fn account(&self, account_id: String) -> Result<Account, Box<dyn Error>> {
         self.accounts_api.account(account_id).await
+    }
+
+    /// Gets all funds from the API and returns of them.
+    pub async fn funds(&self) -> Result<Funds, Box<dyn Error>> {
+        self.funds_api.funds().await
     }
 
     /// Gets all transactions for a single account with account id
