@@ -11,11 +11,15 @@ license-file = "LICENSE"
 keywords = ["op", "banking", "http", "rest"]
 categories = ["api-bindings"]
 
+[features]
+default = ["accounts"]
+accounts = ["chrono"]
+
 [dependencies]
 log = "0.4.11"
 serde = { version = "1.0", features = ["derive"] }
 reqwest = { version = "0.10.8", features = ["json"] }
-chrono = { version = "0.4", features = ["serde"] }
+chrono = { version = "0.4", features = ["serde"], optional = true }
 
 [dev-dependencies]
 tokio = { version = "0.2", features = ["macros"] }

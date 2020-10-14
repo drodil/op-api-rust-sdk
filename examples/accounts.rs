@@ -11,15 +11,21 @@ use op_api_sdk::client::Client;
 /// ```bash
 /// cargo run --example accounts <API_KEY>
 /// ```
+
+#[allow(dead_code)]
+#[cfg(feature = "accounts")]
 use op_api_sdk::model::accounts::{
     AccountList, TransactionList, TransactionParams, TransactionParty,
 };
+#[allow(unused_imports)]
 use op_api_sdk::options::Options;
+#[allow(unused_imports)]
 use std::env;
 
 const NONE_STRING: &str = "None";
 
 /// Prints transaction party information.
+#[cfg(feature = "accounts")]
 fn print_transaction_party(party: Option<TransactionParty>) {
     match party {
         Some(p) => {
@@ -34,6 +40,7 @@ fn print_transaction_party(party: Option<TransactionParty>) {
 }
 
 /// Prints transactions from transaction list.
+#[cfg(feature = "accounts")]
 fn print_transactions_with_details(transactions: TransactionList) {
     if transactions.transactions.is_empty() {
         println!("  No transactions found");
@@ -76,6 +83,7 @@ fn print_transactions_with_details(transactions: TransactionList) {
 /// each account using the Accounts client. This function must be async
 /// as we are calling another async function for fetching the transactions
 /// for the accounts.
+#[cfg(feature = "accounts")]
 async fn print_accounts_with_details(client: &Client, accounts: AccountList) {
     println!("Found {} accounts:", accounts.accounts.len());
     for acc in accounts.accounts {
@@ -112,6 +120,7 @@ async fn print_accounts_with_details(client: &Client, accounts: AccountList) {
 /// Example of getting accounts for the user. Uses OP API sandbox.
 /// API key must be given as command line argument.
 #[tokio::main]
+#[cfg(feature = "accounts")]
 async fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() <= 1 {
@@ -131,4 +140,10 @@ async fn main() {
             println!("Failed to get accounts: {}", e);
         }
     };
+}
+
+#[tokio::main]
+#[cfg(not(feature = "accounts"))]
+async fn main() {
+    println!("No accounts feature enabled, please enable it to run this example!");
 }
