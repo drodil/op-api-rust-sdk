@@ -3,3 +3,4 @@
 
 pub mod accounts;
 pub mod funds;
+pub mod holdings;
