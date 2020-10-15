@@ -2,12 +2,12 @@
 //! [HoldingsV1](https://op-developer.fi/docs/api/3VZiIRoT2EowKC6yeA0gqQ/Holdings)
 //! API
 
-use crate::options::Options;
 use crate::model::holdings::HoldingsInformation;
+use crate::options::Options;
+use crate::requests::Requests;
 use log::debug;
 use std::error::Error;
 use std::sync::Arc;
-use crate::requests::Requests;
 
 /// Holdings client.
 ///

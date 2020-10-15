@@ -3,13 +3,13 @@
 
 use crate::apis::accounts::AccountsApi;
 use crate::apis::funds::FundsApi;
+use crate::apis::holdings::HoldingsApi;
 use crate::model::accounts::*;
 use crate::model::funds::*;
+use crate::model::holdings::HoldingsInformation;
 use crate::options::Options;
 use std::error::Error;
 use std::sync::Arc;
-use crate::apis::holdings::HoldingsApi;
-use crate::model::holdings::HoldingsInformation;
 
 pub struct Client {
     options: Arc<Options>,
