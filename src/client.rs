@@ -28,7 +28,7 @@ impl Client {
             options: options.clone(),
             accounts_api: AccountsApi::new(options.clone()),
             funds_api: FundsApi::new(options.clone()),
-            holdings_api: HoldingsApi::new(options.clone()),
+            holdings_api: HoldingsApi::new(options),
         }
     }
 
